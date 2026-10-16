@@ -58,7 +58,7 @@ You stay in control the whole way:
 
 ## Tools
 
-The server exposes 27 tools, grouped here by what they do:
+The server exposes 28 tools, grouped here by what they do:
 
 **Sites and install**
 `list_sites`, `create_site`, `get_install_snippet`, `get_install_status`
@@ -74,6 +74,8 @@ The server exposes 27 tools, grouped here by what they do:
 
 **Discovery**
 `list_trigger_types`, `list_action_types`
+
+`list_trigger_filter_options` lists the connected account's forms, event types and other choices for narrowing a trigger.
 
 **Account and billing**
 `get_subscription`, `list_plans`, `change_plan`
