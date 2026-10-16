@@ -58,7 +58,7 @@ You stay in control the whole way:
 
 ## Tools
 
-The server exposes 28 tools, grouped here by what they do:
+The server exposes 27 tools, grouped here by what they do:
 
 **Sites and install**
 `list_sites`, `create_site`, `get_install_snippet`, `get_install_status`
