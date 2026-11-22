@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900" role="img" aria-label="Converly icon on black background">
+  <rect width="900" height="900" fill="#000000" />
+  <g transform="translate(155.16 135) scale(2.52)">
+    <path fill="#E8E8E8" d="
+      M 223.05 61.95
+      A 116.70 116.70 0 1 0 222.63 189.63
+      L 179.05 146.05
+      A 57.45 57.45 0 1 1 178.89 106.11
+      Z" />
+    <path fill="#FFFFFF" d="
+      M 14.61 162.89
+      A 116.70 116.70 0 0 0 222.63 189.63
+      L 179.05 146.05
+      A 57.45 57.45 0 0 1 71.27 106.23
+      Z" />
+  </g>
+</svg>

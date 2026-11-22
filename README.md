@@ -32,6 +32,8 @@ Connect it, then just say what you want. For example:
 
 ## Connect it
 
+This repository follows the [Agent Plugins standard](https://agent-plugins.org/), so one package can share its connector and skills across compatible tools. It also includes manifests for Claude Code, Cursor and Gemini CLI. The manual connector routes below connect to the same hosted server.
+
 ### Claude (web or desktop)
 
 1. Open **Settings**, then **Connectors**, then **Add custom connector**.
@@ -46,6 +48,99 @@ Connect it, then just say what you want. For example:
 3. Authorize it, then start chatting.
 
 > Custom connectors require a supported plan on the AI side. Claude allows one custom connector on the Free plan and more on paid plans. ChatGPT requires a paid plan with Developer Mode.
+
+### Cursor
+
+Add the following entry to `~/.cursor/mcp.json`. If the file already has an `mcpServers` section, add `converly` inside it and keep your other servers.
+
+```json
+{
+  "mcpServers": {
+    "converly": {
+      "url": "https://app.converly.io/mcp"
+    }
+  }
+}
+```
+
+Open **Customize** in Cursor's sidebar to check the Converly server is enabled, and complete the Converly sign-in when prompted. Start a chat and ask for help setting up conversion tracking.
+
+[Cursor connection instructions](https://cursor.com/docs/mcp)
+
+### Grok Bot
+
+1. In the desktop app, open **Connect apps**, then choose **Add a custom connector**.
+2. Enter **Converly** as the name, choose **Remote HTTPS**, and enter `https://app.converly.io/mcp` as the server URL.
+3. Choose **Add plugin**. If Grok Bot asks you to sign in to Converly, complete the sign-in.
+4. Ask your Bot to help set up conversion tracking.
+
+[Grok Bot connection instructions](https://docs.x.ai/grok-bot/computer-and-apps)
+
+### grok.com (custom connector)
+
+1. Open [Connectors](https://grok.com/connectors).
+2. Choose **New Connector**, then **Custom**.
+3. Enter `https://app.converly.io/mcp` and complete the Converly sign-in.
+4. Start a conversation and ask for help setting up conversion tracking.
+
+On Grok Business or Enterprise, a team admin must make the connector available first.
+
+[grok.com connection instructions](https://docs.x.ai/grok/connectors)
+
+### Codex
+
+Run these commands in your terminal:
+
+```sh
+codex mcp add converly --url https://app.converly.io/mcp
+codex mcp login converly
+```
+
+Complete the Converly sign-in in your browser, then start Codex. Use `/mcp` to check the connection and ask for help setting up conversion tracking.
+
+[Codex connection instructions](https://learn.chatgpt.com/docs/extend/mcp) and [command reference](https://learn.chatgpt.com/docs/developer-commands)
+
+### Gemini CLI
+
+Install the extension from this repository:
+
+```sh
+gemini extensions install https://github.com/converlyio/converly-mcp
+```
+
+Review and accept the installation prompts, then start `gemini`. Run `/mcp auth converly` and complete the Converly sign-in in your browser. Use `/mcp` to check the connection. The extension includes both Converly skills.
+
+[Gemini extension instructions](https://github.com/google-gemini/gemini-cli/blob/main/docs/extensions/reference.md) and [MCP sign-in instructions](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md)
+
+### OpenClaw
+
+With your OpenClaw Gateway running, run:
+
+```sh
+openclaw mcp add converly --url https://app.converly.io/mcp --transport streamable-http
+openclaw mcp login converly
+```
+
+Follow the sign-in link and approve access in Converly, then send a new message to your agent. You can check the connection with `openclaw mcp doctor converly --probe`.
+
+For a local Gateway, use its localhost address. For a remotely hosted Gateway, use HTTPS. Converly does not accept sign-in callbacks to plain HTTP addresses on your local network, such as `http://192.168.1.10`.
+
+[OpenClaw connection instructions](https://docs.openclaw.ai/tools/mcp)
+
+### Hermes Agent
+
+Add this entry to `~/.hermes/config.yaml`. If it already has an `mcp_servers` section, add `converly` inside it and keep your other servers.
+
+```yaml
+mcp_servers:
+  converly:
+    url: https://app.converly.io/mcp
+    auth: oauth
+```
+
+In a separate terminal, run `hermes mcp login converly` and complete the Converly sign-in in your browser. Then start `hermes chat`, or use `/reload-mcp` in an existing session, and ask for help setting up conversion tracking.
+
+[Hermes connection instructions](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp)
 
 ## How it stays safe
 
@@ -93,11 +188,11 @@ The server also ships guided **prompts** (one-click workflows in clients that su
 
 Declared for reviewers and anyone auditing this plugin before installing it.
 
-**This plugin contains no executable code.** It is a set of manifests plus two Markdown skill files. There are no install or lifecycle hooks, no bundled binaries or minified code, no `postinstall` steps, and nothing is downloaded or run at install time.
+**This plugin contains no executable code.** It contains manifests, two Markdown skills with metadata, documentation and logo images. There are no install or lifecycle hooks, no bundled binaries or minified code, and no `postinstall` steps. Installing the package downloads these files but runs no bundled code.
 
 **Network endpoints contacted:**
 
-- `https://app.converly.io/mcp` — the hosted Converly MCP server, and the only endpoint this plugin causes an agent to call. It is declared in `.mcp.json` as a remote streamable HTTP server.
+- `https://app.converly.io/mcp` is the hosted Converly MCP server, and the only MCP endpoint configured by this plugin. It is declared in `.mcp.json`, `mcp.json` and `gemini-extension.json`. Cursor discovers it from the root `mcp.json`. All three files point to the same server using streamable HTTP.
 
 **Credentials:** none are stored in, read by, or bundled with this plugin. Access is authorized through OAuth against the user's own Converly account on first use, and the resulting token is held by the MCP client, not by anything in this repository. The plugin never reads local files, environment variables, SSH keys, or `.env` files.
 
