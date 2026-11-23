@@ -93,10 +93,10 @@ Run these commands in your terminal:
 
 ```sh
 codex mcp add converly --url https://app.converly.io/mcp
-codex mcp login converly
+codex mcp login converly --scopes openid,profile,offline_access,account:read,sites:read,flows:read,destinations:read,events:read,sites:write,flows:write,destinations:disconnect,handoffs:create,destination_conversions:write
 ```
 
-Complete the Converly sign-in in your browser, then start Codex. Use `/mcp` to check the connection and ask for help setting up conversion tracking.
+The `--scopes` list asks only for the permissions Converly gives AI assistants. Complete the Converly sign-in in your browser, then start Codex. Use `/mcp` to check the connection and ask for help setting up conversion tracking.
 
 [Codex connection instructions](https://learn.chatgpt.com/docs/extend/mcp) and [command reference](https://learn.chatgpt.com/docs/developer-commands)
 
@@ -110,6 +110,8 @@ gemini extensions install https://github.com/converlyio/converly-mcp
 
 Review and accept the installation prompts, then start `gemini`. Run `/mcp auth converly` and complete the Converly sign-in in your browser. Use `/mcp` to check the connection. The extension includes both Converly skills.
 
+Gemini CLI itself needs a Gemini API key or a Google Workspace or Cloud sign-in. Google no longer supports personal Google sign-in for Gemini CLI.
+
 [Gemini extension instructions](https://github.com/google-gemini/gemini-cli/blob/main/docs/extensions/reference.md) and [MCP sign-in instructions](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md)
 
 ### OpenClaw
@@ -117,11 +119,11 @@ Review and accept the installation prompts, then start `gemini`. Run `/mcp auth 
 With your OpenClaw Gateway running, run:
 
 ```sh
-openclaw mcp add converly --url https://app.converly.io/mcp --transport streamable-http
+openclaw mcp set converly '{"url":"https://app.converly.io/mcp","transport":"streamable-http","auth":"oauth"}'
 openclaw mcp login converly
 ```
 
-Follow the sign-in link and approve access in Converly, then send a new message to your agent. You can check the connection with `openclaw mcp doctor converly --probe`.
+Follow the sign-in link and approve access in Converly, then send a new message to your agent. You can check the connection with `openclaw mcp probe converly`. (`openclaw mcp add` tests the connection before saving, and that test fails until you have signed in, so use `set` as shown.)
 
 For a local Gateway, use its localhost address. For a remotely hosted Gateway, use HTTPS. Converly does not accept sign-in callbacks to plain HTTP addresses on your local network, such as `http://192.168.1.10`.
 
@@ -138,7 +140,7 @@ mcp_servers:
     auth: oauth
 ```
 
-In a separate terminal, run `hermes mcp login converly` and complete the Converly sign-in in your browser. Then start `hermes chat`, or use `/reload-mcp` in an existing session, and ask for help setting up conversion tracking.
+In a separate terminal, run `hermes mcp login converly` and complete the Converly sign-in in your browser. Then start `hermes chat`, or use `/reload-mcp` in an existing session, and ask for help setting up conversion tracking. If Hermes reports that its model isn't supported, pick one your sign-in allows with `hermes model`.
 
 [Hermes connection instructions](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp)
 

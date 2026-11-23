@@ -4,7 +4,25 @@
   "description": "Set up and monitor website conversion tracking in conversation. Connect ad platforms through Converly-hosted authorization links, build and publish conversion flows, retrieve the tracking snippet, verify captured conversions, and diagnose delivery failures. A Converly account is required; new users can create one on Converly's website as part of connecting.",
   "mcpServers": {
     "converly": {
-      "httpUrl": "https://app.converly.io/mcp"
+      "httpUrl": "https://app.converly.io/mcp",
+      "oauth": {
+        "enabled": true,
+        "scopes": [
+          "openid",
+          "profile",
+          "offline_access",
+          "account:read",
+          "sites:read",
+          "flows:read",
+          "destinations:read",
+          "events:read",
+          "sites:write",
+          "flows:write",
+          "destinations:disconnect",
+          "handoffs:create",
+          "destination_conversions:write"
+        ]
+      }
     }
   }
 }
