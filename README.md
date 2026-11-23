@@ -63,20 +63,22 @@ Add the following entry to `~/.cursor/mcp.json`. If the file already has an `mcp
 }
 ```
 
-Open **Customize** in Cursor's sidebar to check the Converly server is enabled, and complete the Converly sign-in when prompted. Start a chat and ask for help setting up conversion tracking.
+Open Cursor Settings (Cmd+, on Mac), go to **Tools & MCP**, and choose **Connect** next to `converly`. Approve access in the Converly page that opens in your browser. Start a chat and ask for help setting up conversion tracking.
 
 [Cursor connection instructions](https://cursor.com/docs/mcp)
 
 ### Grok Bot
 
-1. In the desktop app, open **Connect apps**, then choose **Add a custom connector**.
+1. In the Grok Bot app (desktop or mobile), open **Connect apps**, then choose **Add a custom connector**.
 2. Enter **Converly** as the name, choose **Remote HTTPS**, and enter `https://app.converly.io/mcp` as the server URL.
-3. Choose **Add plugin**. If Grok Bot asks you to sign in to Converly, complete the sign-in.
+3. Choose **Add plugin**. If Grok Bot asks you to sign in to Converly, complete the sign-in. Converly's approval screen names Cursor, because Grok Bot connects through Cursor's system.
 4. Ask your Bot to help set up conversion tracking.
 
 [Grok Bot connection instructions](https://docs.x.ai/grok-bot/computer-and-apps)
 
 ### grok.com (custom connector)
+
+Custom connectors on grok.com are for SuperGrok plans.
 
 1. Open [Connectors](https://grok.com/connectors).
 2. Choose **New Connector**, then **Custom**.
@@ -96,7 +98,7 @@ codex mcp add converly --url https://app.converly.io/mcp
 codex mcp login converly --scopes openid,profile,offline_access,account:read,sites:read,flows:read,destinations:read,events:read,sites:write,flows:write,destinations:disconnect,handoffs:create,destination_conversions:write
 ```
 
-The `--scopes` list asks only for the permissions Converly gives AI assistants. Complete the Converly sign-in in your browser, then start Codex. Use `/mcp` to check the connection and ask for help setting up conversion tracking.
+The first command saves the server and may then report a sign-in error. That's expected. The second command signs in, and its `--scopes` list asks only for the permissions Converly gives AI assistants. Complete the Converly sign-in in your browser, then start Codex. Use `/mcp` to check the connection and ask for help setting up conversion tracking.
 
 [Codex connection instructions](https://learn.chatgpt.com/docs/extend/mcp) and [command reference](https://learn.chatgpt.com/docs/developer-commands)
 
