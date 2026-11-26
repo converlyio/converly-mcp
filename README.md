@@ -12,6 +12,8 @@ This is a **remote, hosted MCP server**. There is nothing to install or run. You
 
 This repository is also a Claude Code plugin. It bundles the hosted connector together with two skills, one for guided conversion-tracking setup and one for diagnosing missing conversions.
 
+The setup skill is a copy. Its master lives with the Converly server, which also serves it straight to Claude through the connector (Skills over MCP), so this copy is refreshed from the master with each release rather than edited here.
+
 ```
 /plugin marketplace add converlyio/converly-mcp
 /plugin install converly@converly
